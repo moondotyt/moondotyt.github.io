@@ -52,6 +52,7 @@ html, body, div, a {
   position: absolute;
   width: 1000px;
   height: 800px;
+  min-height: 800px;
   left: 50%;  
   margin-left: -500px;
   top: 50%;
@@ -138,13 +139,13 @@ p {
  <div class=fullscreen-bg__video style="background-color: black; opacity:0.5;"></div>
 <!-- create container element for visualization -->
 <div id="viz" class="center-div" style="font-size:120px;">
+	<br>
+	<br>
 	<span>$</span>
 	<span id='cap'>···</span>
 	<span>billion</span>
 	<br>
-	<br>
 	<span id='msg'></span>
-	<br>
 	<br>
 	<span id='rate'>···</span>
 	<span>%</span>
@@ -183,7 +184,10 @@ p {
 	  if (avg>5) document.getElementById("msg").innerHTML="just HODL 📈";
 	  if (avg>10) document.getElementById("msg").innerHTML="low earth orbit 🛰️";
 	  if (avg>15) document.getElementById("msg").innerHTML="we're mooning 🚀";
-	  if (avg>20) document.getElementById("msg").innerHTML="what moon? 👽";  
+	  if (avg>20) document.getElementById("msg").innerHTML="what moon? 👽";
+
+	  if (avg<0) document.getElementById("rate").style.color="#ff1919"
+	  else document.getElementById("rate").style.color="#00ff48";  
 
 })  
 })

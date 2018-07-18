@@ -1,0 +1,196 @@
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<meta property="og:image" content="https://moondotyt.github.io/moonyt.jpg" />
+<meta property="twitter:image" content="https://moondotyt.github.io/moonyt.jpg" />
+<link rel="shortcut icon" href="favicon.ico" />
+<meta name="description" content="moon yet? | a dead simple crypto market capitalization and trend site #crypto #crpytocast #crpyotcurrency #bitcoin # blockchain  #dataviz @csaladenes" />
+<meta name="keywords" content="csaladenes, d3.js, data visualization, infographic, d3plus, d3, data visualization, mit oec, mit, mit atlas, macro connections, denes csala, crypto bitcoin ethereum litecoin cardano ripple crpyotcurrency cryptocurrencies nem xem blockchain fintech forecast exponential powerlaw cryptocast moon yet coinmarketcap" />
+<meta property="og:description" content="moon yet? | a dead simple crypto market capitalization and trend site #crypto #crpytocast #crpyotcurrency #bitcoin # blockchain  #dataviz @csaladenes" />
+<meta property="twitter:description" content="moon yet? | a dead simple crypto market capitalization and trend site #crypto #crpytocast #crpyotcurrency #bitcoin # blockchain  #dataviz @csaladenes" />
+<meta property="og:title" content="moon yet?" />
+<meta property="twitter:title" content="moon yet?" />
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta property="og:site_name" content="moon yet?" />
+<meta property="og:type" content="website" />
+<meta property="fb:admins" content="100943737036023614165" />
+<meta property="og:url" content="https://moon.yt"/>
+<meta property="twitter:url" content="https://moon.yt"/>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="publisher" href="https://plus.google.com/106181965793093327960" />
+
+<title>moon yet?</title>
+
+<!-- load D3plus after D3js -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+@font-face {
+	font-family: "MyFont";
+	src: url("Lato-Regular.ttf") format("truetype");
+}
+html { 
+    overflow: hidden; 
+}
+#coinmarketcap {
+    -moz-transform:scale(0.60);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.60);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.60);
+    -webkit-transform-origin: 0 0;
+}
+.donate{
+	cursor:pointer;
+	text-decoration: underline;
+}
+html, body, div, a {
+	font-family: MyFont; 
+  color: #ccc;
+}
+.center-div{
+  position: absolute;
+  width: 1000px;
+  height: 800px;
+  min-height: 800px;
+  left: 50%;  
+  margin-left: -500px;
+  top: 50%;
+  margin-top: -420px;
+  background: none;
+  text-align: center;
+}
+* {
+	box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 960px;
+    padding: 0 15px;
+}
+
+h1 {
+    margin: 60px 0;
+    padding: 0;
+    font-size: 50px;
+    text-align: center;
+}
+
+p {
+    margin: 0 0 30px 0;
+    font-size: 30px;
+    line-height: 1.5;
+}
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .fullscreen-bg {
+        background: url('bg.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+<video loop muted autoplay poster="bg.jpg" class="fullscreen-bg__video">
+            <source src="bg.mp4" type="video/mp4">
+ </video>
+ <div class=fullscreen-bg__video style="background-color: black; opacity:0.5;"></div>
+<!-- create container element for visualization -->
+<div id="viz" class="center-div" style="font-size:120px;">
+	<br>
+	<br>
+	<span>$</span>
+	<span id='cap'>···</span>
+	<span>billion</span>
+	<br>
+	<span id='msg'></span>
+	<br>
+	<span id='rate'>···</span>
+	<span>%</span>
+	<span>last 24h</span>
+</div>
+<div id="author" rel="author" style="position:fixed;float:right;right:10px;top:10px;font-size: 10px;"><b>alpha release&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;donate: <span class="donate" onclick="alert(donate+donate_btc);">BTC</span> <span class="donate" onclick="alert(donate+donate_ltc);">LTC</span> <span class="donate" onclick="alert(donate+donate_eth);">ETH</span> <span onclick="alert(donate+donate_bch);" class="donate">BCH</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="https://csaladen.es" target="_blank" >created by</a></b></div>
+
+<script>
+	var donate="Thanks a ton for your support! Kindly send your donation to this address: "
+	var donate_btc='1MRgPy65fmXhwj3caH9qfiQc1WiPG2JmnL'
+	var donate_eth='0x244FAcA7A5b6C7F03a784d797A07ACEFa9b56a79'
+	var donate_bch='1M3HUQ3GQpiNwSs8164DvrqSda7S47utyV'
+	var donate_ltc='LiWzXVgREJzNo33scvRpjmXvMQTZVS5crE'
+
+  
+ $.getJSON('//anyorigin.com/go?url=http%3A//api.coinmarketcap.com/v2/ticker/&callback=?', function(coinsr){
+  var coins=coinsr.contents.data;
+  changes=0
+  volumes=0
+  //console.log(coins)
+  Object.values(coins).forEach(function(d){
+  	weight=Math.pow(d.quotes.USD.market_cap,1/3)
+  	changes=changes+weight*d.quotes.USD.percent_change_24h
+  	volumes=volumes+weight
+  })
+  avg=Math.round(changes*10/volumes)/10
+	 $.getJSON('//anyorigin.com/go?url=http%3A//api.coinmarketcap.com/v2/global/&callback=?', function(coinst){
+	  var total=Math.round(coinst.contents.data.quotes.USD.total_market_cap/1000000000);
+
+	  document.getElementById("cap").innerHTML = total;
+	  document.getElementById("rate").innerHTML = avg;
+	  if (avg<-10) document.getElementById("msg").innerHTML="it's a bloodbath 🛁";
+	  if (avg>-10) document.getElementById("msg").innerHTML="buy the dip 📉";
+	  if (avg>-5) document.getElementById("msg").innerHTML="not today 😔";
+	  if (avg>0) document.getElementById("msg").innerHTML="looking good 😏";
+	  if (avg>5) document.getElementById("msg").innerHTML="just HODL 📈";
+	  if (avg>10) document.getElementById("msg").innerHTML="low earth orbit 🛰️";
+	  if (avg>15) document.getElementById("msg").innerHTML="we're mooning 🚀";
+	  if (avg>20) document.getElementById("msg").innerHTML="what moon? 👽";
+
+	  if (avg<0) document.getElementById("rate").style.color="#ff1919"
+	  else document.getElementById("rate").style.color="#00ff48";  
+
+})  
+})
+
+</script>
+</body>
